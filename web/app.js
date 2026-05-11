@@ -1,4 +1,4 @@
-// ── Drug Data (embedded — sourced from ChEMBL + published clinical literature) ──
+
 const DRUGS = [
   { name:"Baricitinib", use:"Rheumatoid Arthritis", cls:"JAK Inhibitor", target:"JAK1/JAK2", score:0.94, ai:0.94, lit:312, status:"FDA Approved for COVID-19", mw:371.42, logp:1.0, hbd:3, hba:8 },
   { name:"Dexamethasone", use:"Inflammation", cls:"Corticosteroid", target:"Glucocorticoid Receptor", score:0.92, ai:0.91, lit:498, status:"Standard of Care", mw:392.46, logp:1.83, hbd:3, hba:7 },
@@ -33,12 +33,12 @@ const TARGETS = [
   { name:"ACE2 Receptor", type:"Human Receptor", role:"SARS-CoV-2 entry point", drugs:"Hydroxychloroquine", desc:"Human cell surface receptor hijacked by spike protein for cell entry" },
 ];
 
-// ── State ─────────────────────────────────────────────────────────────────────
+
 let currentFilter = 'all';
 let sortCol = 'score';
 let sortAsc = false;
 
-// ── Nav scroll effect ─────────────────────────────────────────────────────────
+
 window.addEventListener('scroll', () => {
   document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
   highlightActiveNav();
@@ -56,7 +56,7 @@ function highlightActiveNav() {
   });
 }
 
-// ── Particles ─────────────────────────────────────────────────────────────────
+
 function spawnParticles() {
   const container = document.getElementById('heroParticles');
   for (let i = 0; i < 25; i++) {
@@ -74,7 +74,7 @@ function spawnParticles() {
   }
 }
 
-// ── Stat counters ─────────────────────────────────────────────────────────────
+
 function animateCounters() {
   document.querySelectorAll('.stat-card').forEach((card, i) => {
     const target = +card.dataset.count;
@@ -90,7 +90,7 @@ function animateCounters() {
   });
 }
 
-// ── Status helpers ────────────────────────────────────────────────────────────
+
 function statusClass(status) {
   if (status.includes('FDA') || status.includes('Standard')) return 'status-approved';
   if (status.includes('Trial') || status.includes('EUA') || status.includes('Approved in') || status.includes('Positive')) return 'status-trials';
@@ -105,7 +105,7 @@ function scoreColor(score) {
   return '#ff4d6d';
 }
 
-// ── Predictions ───────────────────────────────────────────────────────────────
+
 function renderPredictions() {
   const grid = document.getElementById('predictionsGrid');
   let drugs = [...DRUGS];
@@ -141,7 +141,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
-// ── Drug Table ────────────────────────────────────────────────────────────────
+
 function renderTable() {
   const search = document.getElementById('drugSearch').value.toLowerCase();
   const cls = document.getElementById('classFilter').value;
@@ -196,7 +196,7 @@ document.querySelectorAll('.sortable').forEach(th => {
   });
 });
 
-// ── Knowledge Graph (Canvas-based force simulation) ───────────────────────────
+
 function buildGraph() {
   const canvas = document.getElementById('knowledgeGraph');
   const ctx = canvas.getContext('2d');
@@ -210,27 +210,22 @@ function buildGraph() {
   resize();
   window.addEventListener('resize', () => { resize(); simulate(); });
 
-  // Build nodes
   const nodes = [];
   const links = [];
 
-  // COVID-19 center node
   nodes.push({ id: 'COVID-19', type: 'disease', color: '#e74c3c', r: 22, x: canvas.width / 2, y: canvas.height / 2, vx: 0, vy: 0 });
 
-  // Target nodes
   TARGETS.forEach((t, i) => {
     const angle = (i / TARGETS.length) * Math.PI * 2;
     nodes.push({ id: t.name, type: 'protein', color: '#9b59b6', r: 14, x: canvas.width/2 + Math.cos(angle)*160, y: canvas.height/2 + Math.sin(angle)*130, vx: 0, vy: 0, meta: t });
     links.push({ source: 0, target: nodes.length - 1, strength: 0.3 });
   });
 
-  // Drug nodes
   DRUGS.slice(0, 14).forEach((d, i) => {
     const angle = (i / 14) * Math.PI * 2 + 0.3;
     const col = d.score >= 0.85 ? '#27ae60' : d.score >= 0.70 ? '#3498db' : d.score >= 0.50 ? '#f39c12' : '#e74c3c';
     const r = 7 + d.score * 10;
     nodes.push({ id: d.name, type: 'drug', color: col, r, x: canvas.width/2 + Math.cos(angle)*280, y: canvas.height/2 + Math.sin(angle)*220, vx: 0, vy: 0, meta: d });
-    // Link drug to matching target
     const tIdx = nodes.findIndex(n => n.type === 'protein' && d.target.toLowerCase().includes(n.id.toLowerCase().split(' ')[0]));
     if (tIdx > 0) links.push({ source: nodes.length - 1, target: tIdx, strength: 0.15 });
     else links.push({ source: nodes.length - 1, target: 1 + (i % TARGETS.length), strength: 0.08 });
@@ -243,7 +238,6 @@ function buildGraph() {
     const W = canvas.width, H = canvas.height;
     const cx = W / 2 + offsetX, cy = H / 2 + offsetY;
 
-    // Force: repulsion
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
         const dx = nodes[j].x - nodes[i].x;
@@ -258,11 +252,9 @@ function buildGraph() {
       }
     }
 
-    // Force: center attraction for COVID node
     nodes[0].vx += (cx - nodes[0].x) * 0.05;
     nodes[0].vy += (cy - nodes[0].y) * 0.05;
 
-    // Force: link attraction
     links.forEach(l => {
       const a = nodes[l.source], b = nodes[l.target];
       if (!a || !b) return;
@@ -271,7 +263,6 @@ function buildGraph() {
       b.vx -= dx * l.strength * 0.1; b.vy -= dy * l.strength * 0.1;
     });
 
-    // Update positions
     nodes.forEach((n, i) => {
       if (dragging === i) return;
       n.vx *= 0.85; n.vy *= 0.85;
@@ -279,10 +270,8 @@ function buildGraph() {
       n.y = Math.max(n.r + 10, Math.min(H - n.r - 10, n.y + n.vy));
     });
 
-    // Draw
     ctx.clearRect(0, 0, W, H);
 
-    // Links
     links.forEach(l => {
       const a = nodes[l.source], b = nodes[l.target];
       if (!a || !b) return;
@@ -294,7 +283,6 @@ function buildGraph() {
       ctx.stroke();
     });
 
-    // Nodes
     nodes.forEach(n => {
       ctx.beginPath();
       ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
@@ -304,7 +292,6 @@ function buildGraph() {
       ctx.lineWidth = 1.5;
       ctx.stroke();
 
-      // Label
       ctx.fillStyle = '#edf2ff';
       ctx.font = `${Math.max(9, n.r * 0.65)}px Inter, sans-serif`;
       ctx.textAlign = 'center';
@@ -318,7 +305,6 @@ function buildGraph() {
 
   simulate();
 
-  // Tooltip on hover
   canvas.addEventListener('mousemove', e => {
     const rect = canvas.getBoundingClientRect();
     const mx = e.clientX - rect.left, my = e.clientY - rect.top;
@@ -336,7 +322,6 @@ function buildGraph() {
     }
   });
 
-  // Drag
   canvas.addEventListener('mousedown', e => {
     const rect = canvas.getBoundingClientRect();
     const mx = e.clientX - rect.left, my = e.clientY - rect.top;
@@ -352,11 +337,10 @@ function buildGraph() {
   });
   canvas.addEventListener('mouseup', () => { dragging = null; });
 
-  // Controls
   document.getElementById('graphReset').onclick = () => { scale = 1; offsetX = 0; offsetY = 0; };
 }
 
-// ── Intersection Observer for animations ──────────────────────────────────────
+
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
@@ -373,7 +357,7 @@ document.querySelectorAll('.timeline-card, .impact-card, .method-card').forEach(
   observer.observe(el);
 });
 
-// ── Init ──────────────────────────────────────────────────────────────────────
+
 document.addEventListener('DOMContentLoaded', () => {
   spawnParticles();
   animateCounters();

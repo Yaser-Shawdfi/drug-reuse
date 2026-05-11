@@ -14,7 +14,6 @@ from sklearn.metrics.pairwise import cosine_similarity
 def load_drugs(csv_path: str) -> pd.DataFrame:
     """Load and preprocess the drug candidates dataset."""
     df = pd.read_csv(csv_path)
-    # Replace 'N/A' strings with NaN
     df.replace("N/A", np.nan, inplace=True)
     return df
 
@@ -66,7 +65,7 @@ def get_similar_drugs(drug_name: str, df: pd.DataFrame,
     idx = df[df["drug_name"] == drug_name].index[0]
     scores = sim_matrix[idx]
 
-    similar_indices = np.argsort(scores)[::-1][1:top_n + 1]  # exclude self
+    similar_indices = np.argsort(scores)[::-1][1:top_n + 1] 
 
     result = df.iloc[similar_indices][["drug_name", "original_use",
                                        "drug_class", "covid_score",
@@ -92,14 +91,11 @@ def compute_repurposing_score(df: pd.DataFrame) -> pd.DataFrame:
     df["side_effect_score"] = pd.to_numeric(df["side_effect_score"], errors="coerce")
     df["covid_score"] = pd.to_numeric(df["covid_score"], errors="coerce")
 
-    # Normalize literature mentions to [0, 1]
     lit_max = df["literature_mentions"].max()
     df["lit_norm"] = df["literature_mentions"] / lit_max
 
-    # Safety score: lower side effects = better
     df["safety_norm"] = 1 - df["side_effect_score"]
 
-    # Clinical bonus: approved drugs get a boost
     status_bonus = {
         "FDA Approved for COVID-19": 0.15,
         "EUA Approved": 0.12,
@@ -116,7 +112,6 @@ def compute_repurposing_score(df: pd.DataFrame) -> pd.DataFrame:
     }
     df["clinical_bonus"] = df["clinical_status"].map(status_bonus).fillna(0)
 
-    # Composite AI Score (weighted sum)
     df["ai_repurposing_score"] = (
         0.40 * df["binding_affinity_score"].fillna(0) +
         0.25 * df["lit_norm"].fillna(0) +

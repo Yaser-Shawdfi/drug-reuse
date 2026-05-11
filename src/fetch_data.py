@@ -15,14 +15,12 @@ URL: https://www.ebi.ac.uk/chembl/
 import os
 import sys
 import io
-# Force UTF-8 output on Windows
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 import pandas as pd
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "data")
 os.makedirs(DATA_DIR, exist_ok=True)
 
-# ── SARS-CoV-2 ChEMBL Target IDs ─────────────────────────────────────────────
 SARS_COV2_TARGETS = {
     "CHEMBL3927": "SARS-CoV-2 Main Protease (3CLpro / Mpro)",
     "CHEMBL4523582": "SARS-CoV-2 RNA-dependent RNA Polymerase (RdRp / nsp12)",
@@ -109,23 +107,18 @@ def clean_bioactivity_df(df: pd.DataFrame) -> pd.DataFrame:
     df["standard_value"] = pd.to_numeric(df["standard_value"], errors="coerce")
     df["pchembl_value"] = pd.to_numeric(df["pchembl_value"], errors="coerce")
 
-    # Keep only nM measurements
     df = df[df["standard_units"] == "nM"].dropna(subset=["standard_value"])
 
-    # Remove outliers (IC50 > 100,000 nM is practically inactive)
     df = df[df["standard_value"] <= 100_000]
 
-    # Deduplicate: keep best (lowest) IC50 per molecule-target pair
     df = df.sort_values("standard_value").drop_duplicates(
         subset=["molecule_chembl_id", "target_chembl_id"], keep="first"
     )
 
-    # pIC50 = -log10(IC50 in M) — higher is better
     df["pIC50"] = df["pchembl_value"].fillna(
         -df["standard_value"].apply(lambda x: __import__("math").log10(x / 1e9))
     ).round(2)
 
-    # Potency classification
     def classify_potency(ic50_nM):
         if ic50_nM < 100:
             return "High (< 100 nM)"
@@ -185,7 +178,6 @@ def main():
     print(f"\nTotal bioactivity records: {len(combined)}")
     print(f"Unique molecules: {combined['molecule_chembl_id'].nunique()}")
 
-    # Enrich with molecule metadata
     unique_ids = combined["molecule_chembl_id"].dropna().unique().tolist()
     mol_info = fetch_molecule_info(unique_ids)
     if not mol_info.empty:

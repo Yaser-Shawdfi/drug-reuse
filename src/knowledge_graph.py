@@ -27,10 +27,8 @@ def build_knowledge_graph(drugs_df: pd.DataFrame,
     """
     G = nx.DiGraph()
 
-    # Add disease node
     G.add_node("COVID-19", node_type="disease", color="#e74c3c", size=30)
 
-    # Add target nodes
     for _, row in targets_df.iterrows():
         G.add_node(
             row["target_name"],
@@ -40,19 +38,15 @@ def build_knowledge_graph(drugs_df: pd.DataFrame,
             description=row["description"],
             pdb_id=row.get("pdb_id", "N/A")
         )
-        # Connect target to COVID-19
         G.add_edge("COVID-19", row["target_name"],
                    relation="has_target", weight=2)
 
-    # Track drug classes
     drug_classes_added = set()
 
-    # Add drug nodes and edges
     for _, drug in drugs_df.iterrows():
         name = drug["drug_name"]
         score = float(drug["covid_score"]) if pd.notna(drug["covid_score"]) else 0.5
 
-        # Node color by clinical status
         status_colors = {
             "FDA Approved for COVID-19": "#27ae60",
             "EUA Approved": "#2ecc71",
@@ -80,11 +74,9 @@ def build_knowledge_graph(drugs_df: pd.DataFrame,
             clinical_status=str(drug["clinical_status"])
         )
 
-        # Connect drug to its target protein(s)
         targets_str = str(drug["target_protein"])
         for t in targets_str.split("/"):
             t = t.strip()
-            # Match partial target name
             for _, trow in targets_df.iterrows():
                 if t.lower() in trow["target_name"].lower() or \
                    trow["target_name"].lower() in t.lower():
@@ -92,7 +84,6 @@ def build_knowledge_graph(drugs_df: pd.DataFrame,
                                relation="inhibits", weight=score)
                     break
 
-        # Drug class node
         drug_class = str(drug["drug_class"])
         if drug_class not in drug_classes_added:
             G.add_node(drug_class, node_type="class",
