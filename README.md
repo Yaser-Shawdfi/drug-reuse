@@ -20,7 +20,7 @@ Drug repurposing identifies new uses for existing approved drugs. This project r
 ## 🏗️ Project Structure
 
 ```
-drug-repurposing-ai/
+drug-reuse/
 ├── data/
 │   ├── chembl_sars_bioactivity.csv    # Real IC50 data (fetched from ChEMBL API)
 │   ├── covid_drug_candidates.csv      # Clinical outcomes (from published literature)
@@ -59,8 +59,8 @@ drug-repurposing-ai/
 
 ### 1. Clone & Install
 ```bash
-git clone https://github.com/YOUR_USERNAME/drug-repurposing-ai
-cd drug-repurposing-ai
+git clone https://github.com/YOUR_USERNAME/drug-reuse
+cd drug-reuse
 python -m pip install -r requirements.txt
 ```
 
