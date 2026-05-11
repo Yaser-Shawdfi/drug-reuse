@@ -123,13 +123,6 @@ This project reproduces that discovery logic computationally.
 3. Pushpakom et al. (2019). *Drug repurposing: progress, challenges and recommendations.* **Nature Reviews Drug Discovery.**
 4. Stebbing et al. (2020). *COVID-19: combining antiviral and anti-inflammatory treatments.* **The Lancet Infectious Diseases.**
 
----
 
-## 👤 Author
-
-**Yaser-Shawdfi** — Senior Project, AI in Medical Engineering  
-Applying to: [Steinbeis-Next MSc AI in Medical Engineering](https://www.steinbeis-next.de/)
-
----
 
 *Built with Python · ChEMBL API · scikit-learn · NetworkX · HTML/CSS/JS*
