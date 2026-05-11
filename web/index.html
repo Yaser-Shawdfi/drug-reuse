@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Drug Repurposing | COVID-19 Research Dashboard</title>
+  <meta name="description" content="An AI-powered drug repurposing system that identifies existing FDA-approved drugs as potential COVID-19 treatments using knowledge graphs and machine learning." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <span class="logo-icon">⚗️</span>
+        <span class="logo-text">DrugRepurpose<span class="logo-ai">AI</span></span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#hero" class="nav-link active">Home</a></li>
+        <li><a href="#pipeline" class="nav-link">Pipeline</a></li>
+        <li><a href="#predictions" class="nav-link">Predictions</a></li>
+        <li><a href="#explorer" class="nav-link">Drug Explorer</a></li>
+        <li><a href="#graph" class="nav-link">Knowledge Graph</a></li>
+        <li><a href="#casestudy" class="nav-link">Case Study</a></li>
+      </ul>
+
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-particles" id="heroParticles"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-pill">🧬 AI × Medical</span>
+      </div>
+      <h1 class="hero-title">
+        Discovering New<br />
+        <span class="gradient-text">COVID-19 Treatments</span><br />
+        with Artificial Intelligence
+      </h1>
+      <p class="hero-subtitle">
+        An AI-powered drug repurposing system that identifies existing FDA-approved drugs 
+        as potential COVID-19 treatments — using knowledge graphs, similarity scoring, 
+        and machine learning. Inspired by how BenevolentAI discovered Baricitinib.
+      </p>
+      <div class="hero-stats">
+        <div class="stat-card" data-count="30" data-suffix="+">
+          <span class="stat-number" id="stat1">0</span>
+          <span class="stat-label">Drugs Analyzed</span>
+        </div>
+        <div class="stat-card" data-count="12" data-suffix="">
+          <span class="stat-number" id="stat2">0</span>
+          <span class="stat-label">Protein Targets</span>
+        </div>
+        <div class="stat-card" data-count="5" data-suffix="">
+          <span class="stat-number" id="stat3">0</span>
+          <span class="stat-label">FDA Approved</span>
+        </div>
+        <div class="stat-card" data-count="94" data-suffix="%">
+          <span class="stat-number" id="stat4">0</span>
+          <span class="stat-label">Top Score (Baricitinib)</span>
+        </div>
+      </div>
+      <div class="hero-cta">
+        <a href="#predictions" class="btn-primary">View AI Predictions</a>
+        <a href="#casestudy" class="btn-secondary">COVID-19 Case Study</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="molecule-ring" id="moleculeRing"></div>
+    </div>
+  </section>
+
+  <!-- Pipeline Section -->
+  <section class="section" id="pipeline">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Methodology</span>
+        <h2 class="section-title">How the AI Pipeline Works</h2>
+        <p class="section-desc">A four-stage computational approach to drug repurposing, combining knowledge graphs, molecular similarity, NLP literature mining, and composite scoring.</p>
+      </div>
+      <div class="pipeline-steps">
+        <div class="pipeline-step" style="--delay:0s">
+          <div class="step-icon">🗂️</div>
+          <div class="step-number">01</div>
+          <h3 class="step-title">Data Collection</h3>
+          <p class="step-desc">
+            Curated 30+ FDA-approved drugs with pharmacological properties from
+            <a href="https://go.drugbank.com/" target="_blank" class="ref-link">DrugBank</a>,
+            <a href="https://www.ebi.ac.uk/chembl/" target="_blank" class="ref-link">ChEMBL (EBI)</a>, and
+            <a href="https://pubmed.ncbi.nlm.nih.gov/?term=COVID-19+drug+repurposing" target="_blank" class="ref-link">PubMed</a>.
+            Mapped 12 SARS-CoV-2 protein targets from
+            <a href="https://www.rcsb.org/" target="_blank" class="ref-link">RCSB Protein Data Bank</a>.
+            Bioactivity IC50 data fetched live via the
+            <a href="https://www.ebi.ac.uk/chembl/api/data/" target="_blank" class="ref-link">ChEMBL REST API</a>
+            (548 real records across 3CLpro &amp; RdRp targets).
+          </p>
+          <div class="step-tags">
+            <a href="https://go.drugbank.com/" target="_blank" class="tag tag-link">DrugBank</a>
+            <a href="https://www.ebi.ac.uk/chembl/" target="_blank" class="tag tag-link">ChEMBL API</a>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" class="tag tag-link">PubMed</a>
+            <a href="https://www.rcsb.org/" target="_blank" class="tag tag-link">RCSB PDB</a>
+          </div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step" style="--delay:0.1s">
+          <div class="step-icon">🕸️</div>
+          <div class="step-number">02</div>
+          <h3 class="step-title">Knowledge Graph</h3>
+          <p class="step-desc">Built a Drug–Protein–Disease network using NetworkX. Nodes represent drugs, proteins, and diseases; edges encode biological interactions and inhibitions.</p>
+          <div class="step-tags">
+            <span class="tag">NetworkX</span><span class="tag">Graph Theory</span><span class="tag">D3.js</span>
+          </div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step" style="--delay:0.2s">
+          <div class="step-icon">🤖</div>
+          <div class="step-number">03</div>
+          <h3 class="step-title">Similarity Scoring</h3>
+          <p class="step-desc">Applied cosine similarity on drug feature vectors (MW, LogP, H-bond donors/acceptors, binding affinity). Identified structurally and pharmacologically similar drug clusters.</p>
+          <div class="step-tags">
+            <span class="tag">scikit-learn</span><span class="tag">Cosine Similarity</span><span class="tag">Feature Engineering</span>
+          </div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step" style="--delay:0.3s">
+          <div class="step-icon">📊</div>
+          <div class="step-number">04</div>
+          <h3 class="step-title">AI Ranking</h3>
+          <p class="step-desc">Computed composite repurposing scores weighting: binding affinity (40%), literature evidence (25%), safety profile (20%), and COVID-19 relevance (15%).</p>
+          <div class="step-tags">
+            <span class="tag">Weighted Scoring</span><span class="tag">Python</span><span class="tag">pandas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Predictions Section -->
+  <section class="section section-dark" id="predictions">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">AI Output</span>
+        <h2 class="section-title">Top Drug Repurposing Candidates</h2>
+        <p class="section-desc">Ranked by composite AI score — combining binding affinity, clinical evidence, literature mentions, and safety profile.</p>
+      </div>
+
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all" id="filterAll">All Drugs</button>
+        <button class="filter-btn" data-filter="approved" id="filterApproved">✅ FDA Approved</button>
+        <button class="filter-btn" data-filter="trials" id="filterTrials">🔬 In Trials</button>
+        <button class="filter-btn" data-filter="cautious" id="filterCautious">⚠️ Controversial</button>
+      </div>
+
+      <div class="predictions-grid" id="predictionsGrid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Drug Explorer Section -->
+  <section class="section" id="explorer">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Database</span>
+        <h2 class="section-title">Drug Database Explorer</h2>
+        <p class="section-desc">Browse and search all analyzed drugs with their pharmacological properties and COVID-19 relevance scores.</p>
+      </div>
+
+      <div class="explorer-controls">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="drugSearch" placeholder="Search drug name, original use, or drug class..." class="search-input" />
+        </div>
+        <select class="filter-select" id="classFilter">
+          <option value="">All Drug Classes</option>
+        </select>
+        <select class="filter-select" id="statusFilter">
+          <option value="">All Statuses</option>
+        </select>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="drug-table" id="drugTable">
+          <thead>
+            <tr>
+              <th class="sortable" data-col="drug_name">Drug Name <span class="sort-icon">↕</span></th>
+              <th class="sortable" data-col="original_use">Original Use <span class="sort-icon">↕</span></th>
+              <th class="sortable" data-col="drug_class">Drug Class <span class="sort-icon">↕</span></th>
+              <th class="sortable" data-col="target_protein">COVID-19 Target</th>
+              <th class="sortable" data-col="covid_score">COVID Score <span class="sort-icon">↕</span></th>
+              <th>Clinical Status</th>
+            </tr>
+          </thead>
+          <tbody id="drugTableBody">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+      <p class="table-count" id="tableCount"></p>
+    </div>
+  </section>
+
+  <!-- Knowledge Graph Section -->
+  <section class="section section-dark" id="graph">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Network Analysis</span>
+        <h2 class="section-title">Drug–Protein–Disease Knowledge Graph</h2>
+        <p class="section-desc">Interactive network showing connections between drugs, COVID-19 protein targets, and drug classes. Click nodes to explore connections.</p>
+      </div>
+      <div class="graph-legend">
+        <div class="legend-item"><span class="legend-dot" style="background:#e74c3c"></span>Disease</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#9b59b6"></span>Protein Target</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#27ae60"></span>FDA Approved</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#3498db"></span>In Clinical Trials</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#f39c12"></span>Drug Class / Observational</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#e74c3c; opacity:0.7"></span>Not Recommended</div>
+      </div>
+      <div class="graph-container" id="graphContainer">
+        <canvas id="knowledgeGraph"></canvas>
+        <div class="graph-tooltip" id="graphTooltip"></div>
+        <div class="graph-controls">
+          <button class="graph-btn" id="graphReset" title="Reset View">⟳</button>
+          <button class="graph-btn" id="graphZoomIn" title="Zoom In">+</button>
+          <button class="graph-btn" id="graphZoomOut" title="Zoom Out">−</button>
+        </div>
+      </div>
+      <div class="graph-info" id="graphInfo">
+        <p>💡 <strong>Click any node</strong> to see its connections and details. Drag to rearrange.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Study Section -->
+  <section class="section" id="casestudy">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">COVID-19 Case Study</span>
+        <h2 class="section-title">How AI Discovered Baricitinib</h2>
+        <p class="section-desc">A step-by-step walkthrough of how BenevolentAI used knowledge graphs to identify an arthritis drug as a COVID-19 treatment — in January 2020, just weeks after the outbreak.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item left">
+          <div class="timeline-icon">🦠</div>
+          <div class="timeline-card">
+            <span class="timeline-date">Dec 31, 2019</span>
+            <h3>Unknown Pneumonia Reported</h3>
+            <p>WHO notified of pneumonia cases of unknown cause in Wuhan, China. No treatment exists. Scientists begin urgently searching for solutions.</p>
+          </div>
+        </div>
+        <div class="timeline-item right">
+          <div class="timeline-icon">🔬</div>
+          <div class="timeline-card">
+            <span class="timeline-date">Jan 2020</span>
+            <h3>Genome Sequenced</h3>
+            <p>SARS-CoV-2 genome published. BenevolentAI immediately begins querying their knowledge graph of 1B+ biomedical facts to find drug candidates.</p>
+          </div>
+        </div>
+        <div class="timeline-item left">
+          <div class="timeline-icon">🕸️</div>
+          <div class="timeline-card">
+            <span class="timeline-date">Feb 2020</span>
+            <h3>Knowledge Graph Analysis</h3>
+            <p>AI identifies that SARS-CoV-2 uses AAK1 kinase to enter cells. AAK1 is inhibited by <strong>Baricitinib</strong> — a JAK inhibitor used for rheumatoid arthritis since 2018.</p>
+            <div class="code-block">
+              COVID-19 → uses AAK1 for cell entry<br/>
+              AAK1 → inhibited by Baricitinib<br/>
+              ∴ Baricitinib → candidate for COVID-19
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item right">
+          <div class="timeline-icon">📄</div>
+          <div class="timeline-card">
+            <span class="timeline-date">Feb 4, 2020</span>
+            <h3>Published in The Lancet</h3>
+            <p>BenevolentAI publishes findings in <em>The Lancet Infectious Diseases</em>, proposing Baricitinib as a COVID-19 candidate — one of the earliest AI-driven repurposing publications.</p>
+          </div>
+        </div>
+        <div class="timeline-item left">
+          <div class="timeline-icon">🏥</div>
+          <div class="timeline-card">
+            <span class="timeline-date">2020–2021</span>
+            <h3>Clinical Trials (ACTT-2)</h3>
+            <p>NIH-sponsored ACTT-2 trial with 1,033 patients shows Baricitinib + Remdesivir reduces hospital stay by 1 day and improves outcomes in severe patients.</p>
+          </div>
+        </div>
+        <div class="timeline-item right">
+          <div class="timeline-icon">✅</div>
+          <div class="timeline-card highlight">
+            <span class="timeline-date">Nov 19, 2021</span>
+            <h3>FDA Full Approval</h3>
+            <p>FDA grants full approval for Baricitinib (Olumiant) for hospitalized COVID-19 patients requiring oxygen. A drug repurposing success story — made possible by AI knowledge graphs.</p>
+            <div class="success-badge">🏆 FDA APPROVED FOR COVID-19</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="impact-grid">
+        <div class="impact-card">
+          <div class="impact-number">~2 weeks</div>
+          <div class="impact-label">AI identification time</div>
+        </div>
+        <div class="impact-card">
+          <div class="impact-number">vs 10+ years</div>
+          <div class="impact-label">Traditional drug discovery</div>
+        </div>
+        <div class="impact-card">
+          <div class="impact-number">1B+</div>
+          <div class="impact-label">Biomedical facts in BenevolentAI KG</div>
+        </div>
+        <div class="impact-card">
+          <div class="impact-number">~$0</div>
+          <div class="impact-label">Drug synthesis cost (already approved)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About / Methods Section -->
+  <section class="section section-dark" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Research</span>
+        <h2 class="section-title">Methodology & References</h2>
+      </div>
+      <div class="methods-grid">
+        <div class="method-card">
+          <h3>🎯 Problem Statement</h3>
+          <p>COVID-19 caused over 7 million deaths worldwide. Developing new antiviral drugs from scratch takes 10–15 years and billions of dollars. AI-driven drug repurposing offers a faster, cheaper alternative by identifying existing approved drugs that could target SARS-CoV-2.</p>
+        </div>
+        <div class="method-card">
+          <h3>⚙️ Technical Approach</h3>
+          <p>This project implements a simplified drug repurposing pipeline using: (1) curated biomedical datasets, (2) drug feature vector similarity via cosine distance, (3) a knowledge graph with 50+ nodes, and (4) a composite weighted scoring model validated against known repurposed drugs.</p>
+        </div>
+        <div class="method-card">
+          <h3>✅ Validation</h3>
+          <p>Known repurposed drugs — Baricitinib (score: 0.94), Dexamethasone (0.92), Remdesivir (0.91) — rank in the top 3 positions, validating the scoring model against real-world clinical outcomes.</p>
+        </div>
+        <div class="method-card">
+          <h3>📚 Key References</h3>
+          <ul class="ref-list">
+            <li>Richardson et al. (2020). <em>Baricitinib as potential treatment for COVID-19.</em> The Lancet.</li>
+            <li>Gordon et al. (2020). <em>SARS-CoV-2 protein interaction map.</em> Nature.</li>
+            <li>Pushpakom et al. (2019). <em>Drug repurposing: progress, challenges.</em> Nature Reviews Drug Discovery.</li>
+            <li>Stebbing et al. (2020). <em>COVID-19: combining antiviral and anti-inflammatory treatments.</em> The Lancet.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="logo-icon">⚗️</span>
+          <span class="logo-text">DrugRepurpose<span class="logo-ai">AI</span></span>
+        </div>
+        <p class="footer-desc">A senior capstone project demonstrating AI-powered drug repurposing for COVID-19.<br/>Built with Python, NetworkX, scikit-learn, and D3.js.</p>
+        <div class="footer-links">
+          <a href="https://github.com" class="footer-link" id="githubLink">⭐ View on GitHub</a>
+          <a href="notebooks/drug_repurposing_analysis.ipynb" class="footer-link">📓 Jupyter Notebook</a>
+        </div>
+        <p class="footer-copy">© 2025 Senior Project — AI in Medical Engineering</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

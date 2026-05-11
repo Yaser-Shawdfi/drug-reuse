@@ -1,0 +1,13 @@
+target_name,target_type,role_in_covid19,drugs_targeting,pdb_id,description
+Main Protease (3CLpro),Viral Protease,Essential for viral polyprotein processing,"Lopinavir, Ritonavir, Quercetin",6LU7,Cleaves viral polyproteins into functional units; essential for replication
+RNA-dependent RNA Polymerase (RdRp),Viral Polymerase,Viral genome replication,"Remdesivir, Favipiravir, Umifenovir",7BV2,Copies viral RNA genome; primary target for antivirals
+Spike Protein (S),Viral Structural,Host cell entry via ACE2 binding,"Hydroxychloroquine, Umifenovir",6VXX,Mediates attachment to human ACE2 receptor for cell entry
+ACE2 Receptor,Human Receptor,SARS-CoV-2 entry point,"Camostat, Nafamostat",6M0J,Human cell surface receptor hijacked by spike protein
+TMPRSS2,Human Protease,Primes spike protein for membrane fusion,"Camostat, Nafamostat, Bromhexine",N/A,Human serine protease that activates spike for membrane fusion
+JAK1/JAK2,Human Kinase,Mediates cytokine storm signaling,"Baricitinib, Ruxolitinib",3LXK,Signal transducers for pro-inflammatory cytokines (IL-6, IFN)
+IL-6 Receptor,Human Cytokine Receptor,Central to cytokine storm,"Tocilizumab, Sarilumab",1P9M,Receptor for IL-6; key driver of COVID-19 hyperinflammation
+Glucocorticoid Receptor,Human Nuclear Receptor,Anti-inflammatory regulation,"Dexamethasone, Ciclesonide",1M2Z,Nuclear receptor mediating anti-inflammatory corticosteroid effects
+Papain-like Protease (PLpro),Viral Protease,Immune evasion + polyprotein processing,"Quercetin, GRL-0617",7LBR,Cleaves ubiquitin chains to evade innate immune detection
+Sigma-1 Receptor,Human Receptor,ER stress and inflammation,"Fluvoxamine, Hydroxychloroquine",5HK1,Chaperone protein involved in ER stress response and inflammation
+nsp15 (Endonuclease),Viral Enzyme,Evades innate immune dsRNA sensing,"Ciclesonide",7K0R,Cleaves viral dsRNA to hide from innate immune sensors
+Nucleocapsid Protein (N),Viral Structural,RNA packaging and immune modulation,Multiple in development,7CDZ,Packages viral genome; involved in immune evasion

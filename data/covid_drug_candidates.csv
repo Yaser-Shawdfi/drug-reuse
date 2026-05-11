@@ -1,0 +1,31 @@
+drug_name,original_use,drug_class,target_protein,mechanism,mw,logp,hbd,hba,covid_score,clinical_status,fda_approved_year,literature_mentions,binding_affinity_score,side_effect_score
+Baricitinib,Rheumatoid Arthritis,JAK Inhibitor,JAK1/JAK2,Cytokine storm suppression,371.42,1.0,3,8,0.94,FDA Approved for COVID-19,2018,312,0.91,0.72
+Dexamethasone,Inflammation,Corticosteroid,Glucocorticoid Receptor,Anti-inflammatory,392.46,1.83,3,7,0.92,Standard of Care,1958,498,0.88,0.65
+Remdesivir,Ebola,Antiviral,RdRp,RNA polymerase inhibition,602.58,1.78,4,12,0.91,FDA Approved for COVID-19,2020,421,0.93,0.68
+Tocilizumab,Rheumatoid Arthritis,IL-6 Inhibitor,IL-6 Receptor,IL-6 pathway blockade,148000,N/A,0,0,0.88,EUA Approved,2010,287,0.85,0.70
+Ivermectin,Parasitic Infections,Antiparasitic,Importin alpha,Nuclear transport inhibition,875.10,3.17,2,14,0.61,Controversial,1987,203,0.55,0.58
+Favipiravir,Influenza,Antiviral,RdRp,RNA-dependent RNA polymerase inhibitor,157.10,-1.11,2,4,0.82,Approved in some countries,2014,198,0.80,0.62
+Lopinavir,HIV,Protease Inhibitor,3CLpro,Viral protease inhibition,628.80,5.06,4,8,0.72,Clinical Trials,2000,175,0.68,0.55
+Ritonavir,HIV,Protease Inhibitor,3CLpro,Viral protease inhibition + PK booster,720.94,5.18,4,8,0.75,EUA (with Nirmatrelvir),1996,182,0.71,0.52
+Hydroxychloroquine,Malaria/Lupus,Antimalarial,ACE2/Endosome,Endosomal acidification,335.87,3.58,2,4,0.43,Not Recommended,1955,389,0.38,0.60
+Azithromycin,Bacterial Infections,Antibiotic,50S Ribosome,Anti-inflammatory (secondary),748.98,4.02,2,14,0.41,Not Recommended,1991,276,0.35,0.72
+Camostat,Pancreatitis,Serine Protease Inhibitor,TMPRSS2,Spike protein priming inhibition,398.46,0.78,3,9,0.87,Clinical Trials,1985,134,0.84,0.68
+Nafamostat,Blood Coagulation,Serine Protease Inhibitor,TMPRSS2,TMPRSS2 inhibition,347.37,-2.21,5,8,0.86,Clinical Trials,1986,118,0.83,0.66
+Ciclesonide,Asthma,Corticosteroid,Glucocorticoid Receptor,Anti-inflammatory + nsp15 inhibition,540.69,2.86,1,7,0.79,Clinical Trials,2006,89,0.76,0.61
+Nitazoxanide,Parasitic Infections,Antiprotozoal,Multiple,Broad-spectrum antiviral,307.28,0.98,2,6,0.74,Clinical Trials,2004,102,0.70,0.64
+Fluvoxamine,Depression,SSRI,Sigma-1 Receptor,Anti-inflammatory (sigma-1),318.33,3.20,1,4,0.76,Positive Trials,1994,147,0.72,0.69
+Colchicine,Gout,Anti-inflammatory,Tubulin,Inflammasome inhibition,399.44,1.32,2,7,0.77,Clinical Trials (COLCORONA),1960,167,0.73,0.71
+Imatinib,Cancer (CML),Tyrosine Kinase Inhibitor,Abl/PDGFR,Antiviral + anti-inflammatory,493.60,3.54,3,8,0.73,Clinical Trials,2001,134,0.69,0.58
+Sarilumab,Rheumatoid Arthritis,IL-6 Inhibitor,IL-6 Receptor,IL-6 pathway blockade,N/A,N/A,0,0,0.85,Clinical Trials,2017,112,0.82,0.68
+Ruxolitinib,Myelofibrosis,JAK Inhibitor,JAK1/JAK2,Cytokine storm suppression,306.36,2.53,2,5,0.88,Clinical Trials,2011,198,0.85,0.70
+Melatonin,Sleep Disorders,Hormone,MT1/MT2 Receptor,Antioxidant + anti-inflammatory,232.28,1.32,2,3,0.65,Observational Studies,1958,234,0.58,0.89
+Atorvastatin,High Cholesterol,Statin,HMG-CoA Reductase,Anti-inflammatory + ACE2 regulation,558.64,6.36,4,6,0.67,Observational Studies,1996,189,0.62,0.74
+Quercetin,Supplement,Flavonoid,3CLpro/PLpro,Viral protease inhibition,302.24,1.48,5,7,0.70,Observational Studies,N/A,213,0.65,0.82
+Umifenovir (Arbidol),Influenza,Antiviral,Hemagglutinin/TMPRSS2,Membrane fusion inhibition,477.40,3.17,2,5,0.75,Clinical Trials,2006,128,0.71,0.63
+Chlorpromazine,Schizophrenia,Antipsychotic,Dopamine Receptor,Endocytosis inhibition,318.86,5.41,0,2,0.62,In Vitro Only,1954,89,0.57,0.48
+Amantadine,Influenza/Parkinson,Antiviral,Ion Channels,Ion channel blockade,151.25,1.56,2,1,0.58,Clinical Trials,1966,76,0.53,0.77
+Oseltamivir,Influenza,Neuraminidase Inhibitor,Neuraminidase,Neuraminidase inhibition,312.40,0.36,3,5,0.52,Weak Evidence,1999,134,0.45,0.72
+Interferon-beta,Multiple Sclerosis,Cytokine,IFNAR,Antiviral innate immunity,N/A,N/A,0,0,0.81,Clinical Trials,1996,187,0.78,0.55
+Rivaroxaban,Blood Clots,Anticoagulant,Factor Xa,Anti-thrombosis (COVID coagulopathy),435.88,1.72,3,7,0.72,Clinical Trials (PREVENT-HD),2011,145,0.68,0.64
+Enoxaparin,Blood Clots,Anticoagulant,Antithrombin,Anti-thrombosis,4500,N/A,0,0,0.78,Standard of Care,1993,234,0.74,0.61
+Zinc Sulfate,Supplement,Mineral,Multiple,Antiviral + immune modulation,161.47,N/A,0,0,0.63,Observational Studies,N/A,198,0.56,0.85
