@@ -59,7 +59,7 @@ drug-reuse/
 
 ### 1. Clone & Install
 ```bash
-git clone https://github.com/YOUR_USERNAME/drug-reuse
+git clone https://github.com/Yaser-Shawdfi/drug-reuse
 cd drug-reuse
 python -m pip install -r requirements.txt
 ```
@@ -127,7 +127,7 @@ This project reproduces that discovery logic computationally.
 
 ## 👤 Author
 
-**[Your Name]** — Senior Project, AI in Medical Engineering  
+**Yaser-Shawdfi** — Senior Project, AI in Medical Engineering  
 Applying to: [Steinbeis-Next MSc AI in Medical Engineering](https://www.steinbeis-next.de/)
 
 ---
